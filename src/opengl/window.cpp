@@ -1,4 +1,6 @@
 #include "window.h"
+#include <chrono>
+#include <thread>
 #include <imgui_impl_opengl3.h>
 
 Window::Window(const std::string& title, const int width, const int height) {
@@ -85,12 +87,10 @@ Window::Window(const std::string& title, const int width, const int height) {
 
 }
 
-void Window::close() {
-    shouldClose = true;
-}
-
 void Window::startLoop() {
     while (!shouldClose) {
+        getInput();
+
         // Clear screen to start drawing
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -108,6 +108,7 @@ void Window::startLoop() {
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(window);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10)); //15 for 60fps
     }
 
     // Cleanup
@@ -130,4 +131,17 @@ void Window::setClearColor(ImVec4 color) {
 
 void Window::addScreen(Screen *screen) {
     screenList.push_back(screen);
+}
+
+
+void Window::getInput() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                shouldClose = true;
+            default:
+                break;
+        }
+    }
 }

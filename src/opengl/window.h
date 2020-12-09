@@ -10,12 +10,11 @@
 
 class Window {
 public:
-    Window(const std::string& title, const int width, const int height);
+    Window(const std::string& title, int width, int height);
     void setClearColor(ImVec4 color);
     void setClearColor(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
     void startLoop();
     void addScreen(Screen* screen);
-    void close();
 
     SDL_Window *window;
     SDL_GLContext glContext;
@@ -25,5 +24,7 @@ private:
     std::vector<Screen*> screenList;
     std::string glslVersion;
     bool shouldClose = false;
+
+    void getInput();
 };
 #endif //NACHO_WINDOW_H
