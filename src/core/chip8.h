@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NACHO_CHIP8_H
+#define NACHO_CHIP8_H
+
 #include <cstdint>
 #include <cstdlib>
 #include <fstream>
@@ -68,3 +70,5 @@ private:
     void op_Fx55();
     void op_Fx65();
 };
+
+#endif //NACHO_CHIP8_H

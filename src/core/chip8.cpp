@@ -1,6 +1,5 @@
 #include "chip8.h"
 #include <iostream>
-#include <string>
 #include <iomanip>
 
 #define HEX(x) std::setw(2) << std::setfill('0') << std::hex << (int)(x)
