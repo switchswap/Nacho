@@ -92,7 +92,7 @@ bool Chip8::loadRom(const std::string &fileName) {
         RAM[512 + count] = (uint8_t)buffer[0];
         count++;
     }
-
+    romFile.close();
     return true;
 }
 
