@@ -1,13 +1,27 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(Nacho)
+# Project name
+project(nacho)
 
-## If you want to link SFML statically
-# set(SFML_STATIC_LIBRARIES TRUE)
+# Build for C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-## In most cases better set in the CMake cache
-# set(SFML_DIR "<sfml root prefix>/lib/cmake/SFML")
+# Include all library files and source files
+file(GLOB_RECURSE SOURCE_FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/glad/src/glad.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/imgui/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
 
-find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
-add_executable(Nacho nacho.cpp)
-target_link_libraries(Nacho sfml-graphics sfml-audio)
+# Include libraries
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/glad/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/imgui)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/SDL2-2.0.14/include)
+
+# Name of executable
+add_executable(nacho ${SOURCE_FILES})
+
+# Link SDL2
+target_link_libraries(nacho "${CMAKE_CURRENT_SOURCE_DIR}/lib/SDL2-2.0.14/lib/x64/SDL2main.lib;${CMAKE_CURRENT_SOURCE_DIR}/lib/SDL2-2.0.14/lib/x64/SDL2.lib")
+
