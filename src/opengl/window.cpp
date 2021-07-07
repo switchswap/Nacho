@@ -34,8 +34,8 @@ Window::Window(const std::string& title, const int width, const int height) {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 #elif _WIN32
-    // GL 3.0 + GLSL 130
-    glslVersion = "#version 150";
+    // GL 3.3 + GLSL 330
+    glslVersion = "#version 330";
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
@@ -67,7 +67,7 @@ Window::Window(const std::string& title, const int width, const int height) {
     if (gladLoadGL() == 0) {
         fprintf(stderr, "Failed to initialize OpenGL context!\n");
     }
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, width, height - 18); // Subtract height of imgui bar
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -81,10 +81,6 @@ Window::Window(const std::string& title, const int width, const int height) {
     // Setup platform/renderer bindings
     ImGui_ImplSDL2_InitForOpenGL(window, glContext);
     ImGui_ImplOpenGL3_Init(glslVersion.c_str());
-
-    // Todo: Calling viewport again after ImGui initialization and may not be needed
-    glViewport(0, 0, (int) io.DisplaySize.x, (int) io.DisplaySize.y);
-
 }
 
 void Window::startLoop() {

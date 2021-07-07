@@ -11,7 +11,7 @@ class Chip8Screen: public Screen {
 public:
     explicit Chip8Screen(Chip8 &chip8);
     void update() override;
-    void drawScreen() const;
+    void drawScreen();
 
 private:
     Chip8 &chip8;
@@ -36,12 +36,14 @@ private:
 
     SDL_Event event;
     // Vertex array/buffer and shader program objects
-    GLuint vao, vbo, shaderProgram;
+    GLuint vao, vbo, ebo, shaderProgram, texture;
     // Vertex and Fragment shader
     Shader vertShader, fragShader;
+    GLubyte textureArray[32][64][4];
 
     void initShaders();
     void getInput();
+    void genTexture();
 };
 
 
