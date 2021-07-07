@@ -13,7 +13,7 @@ public:
     void executeOpcode();
     bool loadRom(const std::string& fileName);
     static bool printRom(const std::string& fileName);
-    uint8_t display[64 * 32]{}; // 64 x 32 (4096) screen size
+    uint8_t display[64 * 32]{}; // 64 x 32 (2048) screen size
     uint8_t keypad[16]{}; // 0x0 to 0xF (16 buttons)
     bool drawFrame{};
     void updateTimers();
